@@ -6,19 +6,15 @@ on:
     - master
 
 jobs:
-  deploy:
-    name: Deploy
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Yarn install
-      uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: install
-    - name: Yarn build
-      uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: build:prod
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: Install and Build
+      run: |
+          npm install
+          npm run build:prod
     - name: Deploy
       uses: maxheld83/ghpages@v0.2.1
       env:
